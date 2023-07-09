@@ -3,6 +3,8 @@ from .models import Conta, Categoria
 from django.contrib import messages
 from django.contrib.messages import constants
 from .utils import calcula_total
+from extrato.models import Valores
+from django.db.models import Sum
 
 
 def home(request):
@@ -84,3 +86,14 @@ def update_categoria(request, id):
     categoria.save()
 
     return redirect('/perfil/gerenciar/')
+
+
+def dashboard(request):
+    dados = {}
+    categorias = Categoria.objects.all()
+
+    for categoria in categorias:
+        dados[categoria.categoria] = Valores.objects.filter(categoria=categoria).aggregate(Sum('valor'))['valor__sum'] # noqa
+
+    return render(request, 'dashboard.html', {'labels': list(dados.keys()),
+                                              'values': list(dados.values())})
