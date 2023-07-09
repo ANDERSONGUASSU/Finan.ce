@@ -22,64 +22,83 @@
             <div class="col-md-8">
                 <p class="fonte-destaque color-red" >Contas vencidas</p>
                 <div class="card">
-                        
-                            <div class="linha-conta">
+                    {% if not restantes %}
+
+                    <p class="fonte_destaque">Não há contas vencidas</p>
+
+                    {% else %}
+
+                        {% for conta in contas_vencidas %}
+                            <div class="linha-conta mb-3">
                                 <div class="row">
-                                    <div class="col-md text-center p-2">
-                                        Luz
+                                    <div class="col-md text-center mb-3">
+                                        {{ conta }}
                                     </div>
-                                    <div class="col-md text-center p-2">
-                                        Dia:1
+                                    <div class="col-md text-center mb-3">
+                                        Dia: {{ conta.dia_pagamento }}
                                     </div>
                                     <div class="col-md text-center">
                                         <a href="#" class="botao-principal">PAGAR</a>
                                     </div> 
                                 </div>
                             </div>
-                       
+                        {% endfor %}
+
+                    {% endif %}
                 </div>
                 <br>
                 <br>
                 <p class="fonte-destaque color-red1">Contas próximas do vencimento</p>
                 <div class="card">
+                    {% if not restantes %}
+
+                    <p class="fonte_destaque">Não há contas próximas ao vencimento</p>
+
+                    {% else %}
                     
-                        
-                            <div class="linha-conta">
+                        {% for conta in contas_proximas_vencimento %}
+                            <div class="linha-conta mb-3">
                                 <div class="row">
-                                    <div class="col-md text-center p-2">
-                                        Luz
+                                    <div class="col-md text-center mb-3">
+                                        {{ conta }}
                                     </div>
-                                    <div class="col-md text-center p-2">
-                                        Dia: 1
+                                    <div class="col-md text-center mb-3">
+                                        Dia: {{ conta.dia_pagamento }}
                                     </div>
                                     <div class="col-md text-center">
                                         <a href="#" class="botao-principal">PAGAR</a>
                                     </div> 
                                 </div>
                             </div>
-                        
-                        
+                        {% endfor %}
+
+                    {% endif %}                       
                     
                 </div>
                 <br>
                 <br>
+
                 <p class="fonte-destaque">Restantes</p>
                 <div class="card">
-                
-                          
-                            <div class="linha-conta">
+                    {% if not restantes %}
+                        <p class="fonte_destaque">Não há mais contas a pagar</p>
+                    {% else %}
+                        {% for conta in restantes %}
+                            <div class="linha-conta mb-3">
                                 <div class="row">
-                                    <div class="col-md text-center p-2">
-                                        Luz
+                                    <div class="col-md text-center mb-3">
+                                        {{ conta }}
                                     </div>
-                                    <div class="col-md text-center  p-2">
-                                        Dia: 1
+                                    <div class="col-md text-center  mb-3">
+                                        Dia: {{ conta.dia_pagamento }}
                                     </div>
                                     <div class="col-md text-center">
                                         <a href="#" class="botao-principal">PAGAR</a>
                                     </div> 
                                 </div>
                             </div>
+                        {% endfor %}
+                    {% endif %}
                         
                        
                     
