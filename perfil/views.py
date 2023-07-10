@@ -14,8 +14,10 @@ def home(request):
     saidas = valores.filter(tipo='S')
     total_entradas = calcula_total(entradas, 'valor')
     total_saidas = calcula_total(saidas, 'valor')
+    total_livre = (total_entradas - total_saidas)
     contas = Conta.objects.all()
     saldo_total = calcula_total(contas, 'valor')
+    
 
     percentual_gastos_essenciais, percentual_gastos_nao_essenciais = calcula_equilibrio_financeiro() # noqa
     return render(request, 'home.html',
@@ -23,6 +25,7 @@ def home(request):
                    'saldo_total': saldo_total,
                    'total_entradas': total_entradas,
                    'total_saidas': total_saidas,
+                   'total_livre': total_livre,
                    'percentual_gastos_essenciais':
                    int(percentual_gastos_essenciais),
                    'percentual_gastos_nao_essenciais':
